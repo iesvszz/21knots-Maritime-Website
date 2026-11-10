@@ -84,6 +84,25 @@ const blockBody = b => `
   ${b.defs ? `<dl class="defs">${b.defs.map(([dt, dd]) => `<div><dt>${esc(dt)}</dt><dd>${esc(dd)}</dd></div>`).join("")}</dl>` : ""}
   ${b.href ? `<div style="margin-top:28px">${btn(b.hrefLabel, b.href, "btn--ghost", true)}</div>` : ""}`;
 
+
+const credentialsBlock = () => `
+  <div class="creds">
+    ${C.credentials.map((c, k) => `<div class="cred" data-reveal style="--delay:${k * .06}s"><span>${esc(c.k)}</span><p>${esc(c.v)}</p></div>`).join("")}
+  </div>
+  <div class="classbar" data-reveal><span class="classbar-l">Experienced with leading classification societies</span><ul>${C.classSocieties.map(c => `<li>${esc(c)}</li>`).join("")}</ul></div>`;
+
+const portfoliosBlock = () => `
+  <div class="portfolios">
+    ${C.portfolios.map((p, k) => `<article class="pf${k === 1 ? " pf--blue" : ""} spot" data-reveal style="--delay:${k * .08}s">
+      <div class="pf-art${k === 1 ? "" : " bp"}" aria-hidden="true">${Art(p.art)}</div>
+      <div class="pf-head">${p.logo ? `<img class="pf-logo" src="${p.logo}" alt="${esc(p.title)}">` : `<h3>${esc(p.title)}</h3>`}<p>${esc(p.text)}</p></div>
+      <ul>${p.items.map(([t, h]) => `<li><a href="${L(h)}">${esc(t)}${Icon.arrow}</a></li>`).join("")}</ul>
+    </article>`).join("")}
+  </div>`;
+
+const clientsBlock = () => `
+  <div class="segments">${C.clientSegments.map((c, k) => `<div class="seg" data-reveal style="--delay:${k * .05}s"><div class="seg-art bp" aria-hidden="true">${Art(c.art)}</div><b>${esc(c.t)}</b></div>`).join("")}</div>`;
+
 /* ---------------- HOME ---------------- */
 function viewHome() {
   const s = C.hero.slides;
@@ -117,7 +136,7 @@ function viewHome() {
     <p class="statement" data-scrub style="margin-top:28px">${esc(C.intro)}</p>
     <div class="bento">
       <div class="tile tile-globe" data-reveal>
-        <div class="globe-head"><h3>Our offices</h3><p>Select an office on the globe to see where we are.</p></div>
+        <div class="globe-head"><h3>Our offices</h3><p>${esc(C.reach)} Select an office on the globe.</p></div>
         <div class="globe-wrap" id="globe-wrap">
           <canvas id="globe" aria-label="Globe showing 21 Knots offices" role="img"></canvas>
           ${C.offices.map((o, k) => `<button class="globe-pin${o.labelLeft ? " globe-pin--left" : ""}" data-i="${k}" aria-pressed="false" aria-label="${esc(o.city)}: show office location"><i></i><span>${esc(o.label)}</span></button>`).join("")}
@@ -125,8 +144,8 @@ function viewHome() {
         <div class="globe-card" id="globe-card" hidden><button class="globe-close" id="globe-close" aria-label="Close office details">${Icon.close}</button><div id="globe-card-body"></div></div>
       </div>
       <div class="tile tile-team spot" data-reveal style="--delay:.08s">
-        <div class="big-n"><span data-count="50">50</span><sup>+</sup></div>
-        <div><h3>Engineers in-house</h3><div class="chips-s" style="margin-top:14px">${C.team.map(t => `<span>${esc(t.title)}</span>`).join("")}</div></div>
+        <div class="big-n"><span data-count="200">200</span><sup>+</sup></div>
+        <div><h3>People across the group</h3><div class="chips-s" style="margin-top:14px">${C.team.map(t => `<span>${esc(t.title)}</span>`).join("")}</div></div>
       </div>
       <div class="tile tile-iso" data-reveal style="--delay:.16s">
         <div class="seal">
@@ -166,6 +185,17 @@ function viewHome() {
         </div>
       </article>`).join("")}
     </div>
+  </div></section>
+
+  <section class="section" style="padding-top:0"><div class="wrap">
+    <div class="shead"><div><span class="tag">What 21 Knots does</span><h2 class="h2 split">Three connected portfolios. One maritime perspective.</h2></div><p>Fleet support in the yard and on board, engineering in the office, and software that keeps fleets efficient and compliant.</p></div>
+    ${portfoliosBlock()}
+  </div></section>
+
+  <section class="section" style="padding-top:0"><div class="wrap">
+    <div class="shead"><div><span class="tag">Our clients</span><h2 class="h2 split">Owners, operators and yards across every major vessel type.</h2></div><p>${esc(C.reach)}</p></div>
+    ${clientsBlock()}
+    ${credentialsBlock()}
   </div></section>
 
   <section class="hs" id="caps">
@@ -257,11 +287,27 @@ function viewAbout() {
   ${pageHero({ crumbs: crumbs(["About us"]), title: "Naval architects and engineers for the maritime and energy industries.", aside: C.company.blurb, art: "bodyplan", sheet: "Company", drawing: "About 21 Knots" })}
   <section class="section" style="padding-top:clamp(40px,5vw,80px)"><div class="wrap">
     <span class="tag">Company introduction</span>
-    <p class="statement" data-scrub style="margin-top:28px">The industry is shaped by changing regulations, economic swings and climate change mandates. We deliver cutting-edge solutions with a strong commitment to excellence, and our team pairs industry experience with enthusiasm, creativity and dedication to engineer customised solutions.</p>
+    <p class="statement" data-scrub style="margin-top:28px">${esc(C.intro)}</p>
+    <div class="pillars">${C.pillars.map((p, k) => `<div data-reveal style="--delay:${k * .06}s"><span>${String(k + 1).padStart(2, "0")}</span><b>${esc(p)}</b></div>`).join("")}</div>
+  </div></section>
+
+  <section class="section" style="padding-top:0"><div class="wrap">
+    <div class="shead"><div><span class="tag">Credentials</span><h2 class="h2 split">Trusted by owners and classification societies since 2014.</h2></div></div>
+    ${credentialsBlock()}
+  </div></section>
+
+  <section class="section" style="padding-top:0"><div class="wrap">
+    <div class="shead"><div><span class="tag">What we do</span><h2 class="h2 split">Three connected portfolios.</h2></div></div>
+    ${portfoliosBlock()}
+  </div></section>
+
+  <section class="section" style="padding-top:0"><div class="wrap">
+    <div class="shead"><div><span class="tag">Our clients</span><h2 class="h2 split">Who we work with.</h2></div><p>${esc(C.reach)}</p></div>
+    ${clientsBlock()}
   </div></section>
 
   <section class="section journey-sec" style="padding-top:0"><div class="wrap">
-    <div class="shead"><div><span class="tag">${esc(J.title)}</span><h2 class="h2 split">From eight engineers to a group of four companies.</h2></div><p>${esc(J.sub)} Scroll through the milestones that shaped 21 Knots.</p></div>
+    <div class="shead"><div><span class="tag">${esc(J.title)}</span><h2 class="h2 split">Since 2014: from a small team to 200+ people.</h2></div><p>${esc(J.sub)} Scroll through the milestones that shaped 21 Knots.</p></div>
     <div class="tl" id="timeline">
       ${J.milestones.map((m, k) => `<div class="tl-item${k === J.milestones.length - 1 ? " tl-item--future" : ""}">
         <div class="tl-side"><span class="tl-dot" aria-hidden="true"><i></i></span><h3 class="tl-year">${esc(m.year)}</h3></div>
@@ -289,12 +335,12 @@ function viewAbout() {
   </div></section>
 
   <section class="section" style="padding-top:0"><div class="wrap">
-    <div class="shead"><div><span class="tag">Our team</span><h2 class="h2 split">50+ engineers under one roof.</h2></div><p>Every discipline a vessel or platform needs, working on the same model.</p></div>
+    <div class="shead"><div><span class="tag">Our team</span><h2 class="h2 split">200+ people, one team.</h2></div><p>Every discipline a vessel or platform needs, working on the same model.</p></div>
     <div class="team-story">
       <p class="lead">${esc(C.teamStory)}</p>
       <div class="team">${C.team.map((t, i) => `<div data-reveal style="--delay:${i * .08}s"><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></div>`).join("")}</div>
     </div>
-    ${C.teamPhoto ? `<figure class="team-photo" data-reveal><img src="${C.teamPhoto}" alt="The 21 Knots team" loading="lazy"><figcaption><b>The 21 Knots team</b><span>50+ naval architects and engineers</span></figcaption></figure>` : ""}
+    ${C.teamPhoto ? `<figure class="team-photo" data-reveal><img src="${C.teamPhoto}" alt="The 21 Knots team" loading="lazy"><figcaption><b>The 21 Knots team</b><span>200+ naval architects and engineers</span></figcaption></figure>` : ""}
   </div></section>
 
   <section class="section" style="padding-top:0"><div class="wrap">
@@ -302,7 +348,7 @@ function viewAbout() {
     <div class="leaders">
       ${C.leadership.map((l, k) => `<article class="leader spot" data-reveal style="--delay:${k * .06}s">
         <div class="leader-photo">${l.photo ? `<img src="${l.photo}" alt="${esc(l.name || l.role)}" loading="lazy">` : `<span class="leader-ph">${Icon.user}</span>`}</div>
-        <div class="leader-meta">${l.name ? `<h3>${esc(l.name)}</h3><p>${esc(l.role)}</p><span class="leader-org">${esc(l.org)}</span>` : `<h3>${esc(l.role)}</h3><span class="leader-org">${esc(l.org)}</span>`}</div>
+        <div class="leader-meta">${l.name ? `<h3>${esc(l.name)}</h3><p>${esc(l.role)}</p>${l.bio ? `<p class="leader-bio">${esc(l.bio)}</p>` : ""}<span class="leader-org">${esc(l.org)}</span>` : `<h3>${esc(l.role)}</h3><span class="leader-org">${esc(l.org)}</span>`}</div>
       </article>`).join("")}
     </div>
   </div></section>

@@ -8,7 +8,7 @@ const CONTENT = {
     name: "21 Knots",
     legal: "21 Knots Design and Consulting Pvt. Ltd",
     tagline: "Design, engineering and consulting for the global maritime and oil & gas industry.",
-    blurb: "21 Knots is a design, engineering and consulting firm providing services to the global maritime and oil & gas industry.",
+    blurb: "21 Knots is a global design, engineering and consulting firm for the maritime and oil & gas industries, delivering multidisciplinary engineering solutions since 2014.",
     email: "info@21-knots.com",
     careersEmail: "careers@21-knots.com",
     iso: "ISO 9001:2015",
@@ -29,10 +29,10 @@ const CONTENT = {
     ]
   },
 
-  intro: "21 Knots is a design, engineering and consulting firm serving the global maritime and oil & gas industry. Regulations change, markets swing and climate mandates tighten. We engineer ships and offshore assets that keep pace with all three.",
+  intro: "We are a global design, engineering and consulting firm for the maritime and oil & gas industries. Our expertise spans design and engineering, inspections, supervision and surveys, while Zeroqu helps clients achieve sustainable operations and compliance.",
 
   facts: [
-    { n: 50, suffix: "+", label: "Naval architects, structural, electrical and marine engineers" },
+    { n: 200, suffix: "+", label: "People across the 21 Knots group" },
     { n: 4, suffix: "", label: "Group companies across India, Singapore, the UAE and the Netherlands" },
     { n: 3, suffix: "", label: "Engineering offices in Thane, Singapore and Ajman" },
     { text: "ISO", label: "9001:2015 certified quality management system" }
@@ -100,18 +100,42 @@ const CONTENT = {
   ],
 
 
+
+  /* ---------- from the company presentation (2026) ---------- */
+  since: 2014,
+  pillars: ["Design & Engineering", "Testing & Inspection", "Consulting & Solutions"],
+  credentials: [
+    { k: "Operations", v: "Since 2014, delivering multidisciplinary engineering solutions globally." },
+    { k: "Classification societies", v: "Experienced in working with ClassNK, RINA, DNV, IRS, ABS, LR and BV." },
+    { k: "Security compliance", v: "Strict adherence to IT compliance standards with robust data security measures." },
+    { k: "Certification", v: "ISO 9001:2015 certified quality management system." }
+  ],
+  classSocieties: ["ClassNK", "RINA", "DNV", "IRS", "ABS", "LR", "BV"],
+  clientSegments: [
+    { t: "Containers", art: "hull" }, { t: "Bulk carriers", art: "hold" }, { t: "Tankers", art: "bodyplan" },
+    { t: "Offshore", art: "jacket" }, { t: "Cruise", art: "catamaran" }, { t: "Shipyards", art: "crane" }
+  ],
+  portfolios: [
+    { title: "Fleet Technical Support", text: "Hands-on support for vessels in service, from dry dock to delivery.", art: "scan",
+      items: [["Dry docking", "dry-docking-assistance"], ["UTM services", "surveys-inspections"], ["Ship inspections", "inspections-and-surveys"], ["Repairs & maintenance", "marine-construction"], ["Newbuild supervision", "installation-supervision"]] },
+    { title: "Design & Engineering", text: "Naval architecture and engineering for ships, offshore and oil & gas assets.", art: "bodyplan",
+      items: [["Ship design", "design-services"], ["Offshore engineering", "offshore-engineering-design"], ["Oil & gas engineering", "oil-gas-engineering"], ["Advanced engineering", "advance-engineering-solutions"], ["Design software solutions", "software-solutions"]] },
+    { title: "Zeroqu Maritime Software", text: "Data and software for greener, more efficient fleet operations.", art: "grid", logo: "%%ZEROQU%%",
+      items: [["Vessel performance", "software-solutions"], ["Emissions insights", "eexi-cii"], ["Hull & propeller analytics", "software-solutions"], ["Voyage optimisation", "software-solutions"], ["Compliance support", "green-services"]] }
+  ],
+  reach: "India-based core team with offices in Singapore, the UAE, Rotterdam and New Jersey. Projects across the USA, Europe, the Middle East and South East Asia.",
+
   /* ---------- About page: journey, values, team ---------- */
   journey: {
     title: "Growth journey",
     sub: "A journey of innovation and progress.",
     milestones: [
-      { year: "2013", title: "Inception", text: "A modest beginning with a strong ambition to make an impact in the field of naval architecture.", people: "8 people", where: ["Mumbai, India"], art: ["bodyplan", "hull"], links: [["Ship design services", "design-services"], ["Naval architecture", "naval-architecture"]] },
-      { year: "2016", title: "Entry into green ship recycling", text: "We began consulting on the construction, operation and recycling of ships for owners, recycling facilities and shipyards, with a team certified to carry out Inventory of Hazardous Materials surveys.", art: ["scan"], links: [["Green ship recycling", "green-ship-recycling"]] },
-      { year: "2017", title: "Launch of dry-docking management services", text: "Support for owners and class surveyors through special surveys and dockings for all vessel types: pre-docking inspections, yard supervision, QC witnessing and class comment close-out.", art: ["crane"], links: [["Dry docking assistance", "dry-docking-assistance"]] },
-      { year: "2018", title: "Growth", text: "Entered into a joint venture with MDO Inc, USA to expand our geographic footprint.", people: "25 people", where: ["India", "Singapore", "New Jersey, USA"], art: ["jacket", "barge"], links: [["Offshore", "offshore"]] },
-      { year: "2019", title: "Expansion into BWTS and scrubbers", text: "Retrofit engineering for ballast water treatment systems and exhaust gas scrubbers, from 3D laser scanning and feasibility to detailed design, class approval and installation support.", art: ["bwts", "scrubber"], links: [["Ballast water treatment retrofit", "ballast-water-treatment-system-retrofit"], ["Exhaust gas scrubber retrofit", "exhaust-gas-scrubber-retrofit"]] },
-      { year: "2024", title: "Zeroqu", logo: "%%ZEROQU%%", text: "Focused on building new ventures and marine software services, with Zeroqu Solutions in Rotterdam.", people: "50+ people", where: ["India", "Singapore", "New Jersey, USA", "Ajman, UAE"], art: ["grid"], links: [["Software solutions", "software-solutions"]], ext: ["zeroqu.com", "https://zeroqu.com"] },
-      { year: "2025", title: "Future", text: "Shaping a sustainable future by embracing eco-friendly solutions and innovative technologies that create a positive impact on the maritime industry.", art: ["turbine"], links: [["Green services", "green-services"], ["EEXI & CII", "eexi-cii"]] }
+      { year: "2014", title: "Inception", text: "A modest beginning with a strong ambition to make an impact in the field of naval architecture.", where: ["Mumbai, India"], art: ["bodyplan", "hull"], links: [["Ship design services", "design-services"], ["Naval architecture", "naval-architecture"]] },
+      { year: "2016", title: "Green shipping services", text: "Green ship recycling and sustainability consulting for owners, recycling facilities and shipyards, with a team certified for Inventory of Hazardous Materials surveys.", art: ["scan"], links: [["Green services", "green-services"], ["Green ship recycling", "green-ship-recycling"]] },
+      { year: "2017", title: "Entry into dry docking services", text: "Support for owners and class surveyors through special surveys and dockings for all vessel types: pre-docking inspections, yard supervision, QC witnessing and class comment close-out.", art: ["crane"], links: [["Dry docking assistance", "dry-docking-assistance"]] },
+      { year: "2019", title: "BWTS & scrubbers", text: "Retrofit engineering for ballast water treatment systems and exhaust gas scrubbers, from 3D laser scanning and feasibility to detailed design, class approval and installation support.", art: ["bwts", "scrubber"], links: [["Ballast water treatment retrofit", "ballast-water-treatment-system-retrofit"], ["Exhaust gas scrubber retrofit", "exhaust-gas-scrubber-retrofit"]] },
+      { year: "2023", title: "UTM services", text: "Ultrasonic thickness measurement to class requirements, adding hull condition data to our survey and dry-docking work.", art: ["hold"], links: [["Surveys & inspections", "surveys-inspections"]] },
+      { year: "2024", title: "Joint venture and Zeroqu", logo: "%%ZEROQU%%", text: "Entered into a joint venture with MDO Inc, USA to expand our geographic footprint, and focused on building new ventures and marine software services through Zeroqu.", people: "200+ people", where: ["India", "Singapore", "UAE", "Rotterdam, NL", "New Jersey, USA"], art: ["grid"], links: [["Software solutions", "software-solutions"]], ext: ["zeroqu.com", "https://zeroqu.com"] }
     ],
     headcount: [
       { n: 8, label: "Team at inception", where: "Mumbai, India", text: "A modest beginning with a strong ambition to make an impact in naval architecture." },
@@ -128,15 +152,15 @@ const CONTENT = {
     { title: "Sustainable & greener futures", text: "We shape a sustainable future by embracing eco-friendly solutions and innovative technologies that create a positive impact on the maritime industry.", icon: "leaf" }
   ],
 
-  teamStory: "Our strength lies in our people, which is how we invest in bringing the most relevant capabilities to serve our clients' needs. With 50+ team members, we are a tightly knit community of naval architects, structural engineers, electrical engineers and marine engineers. Through our broad spectrum of talent, our portfolio of services is continuously evolving by combining industry experience and knowledge with enthusiasm, creativity and dedication to develop customised solutions.",
+  teamStory: "Our strength lies in our people, which is how we invest in bringing the most relevant capabilities to serve our clients' needs. With 200+ people across the group, we are a tightly knit community of naval architects, structural engineers, electrical engineers and marine engineers. Through our broad spectrum of talent, our portfolio of services is continuously evolving by combining industry experience and knowledge with enthusiasm, creativity and dedication to develop customised solutions.",
   teamPhoto: "%%TEAM%%",   // path or data URI of the team photo
 
   leadership: [
-    { name: "Nitesh Ranvah", role: "CEO", org: "21 Knots Group", photo: "%%P_NITESH%%" },
-    { name: "Amit Kumar", role: "Co-founder and CTO", org: "Zeroqu", photo: "%%P_AMIT%%" },
-    { name: "Sojan Varkey", role: "General Manager, Technical Services", org: "21 Knots", photo: "%%P_SOJAN%%" },
-    { name: "Irshad Hussain", role: "General Manager, Design Services", org: "21 Knots", photo: "%%P_IRSHAD%%" },
-    { name: "Sivapriya", role: "COO", org: "Zeroqu", photo: "%%P_SIVAPRIYA%%" }
+    { name: "Nitesh Ranvah", role: "CEO", org: "21 Knots Group", bio: "Seasoned naval architect with nearly 18 years of experience.", photo: "%%P_NITESH%%" },
+    { name: "Amit Kumar", role: "Co-founder and CTO", org: "Zeroqu", bio: "Former vessel performance lead at Maersk, with 23 years of experience.", photo: "%%P_AMIT%%" },
+    { name: "Sojan Varkey", role: "General Manager, Technical Services", org: "21 Knots", bio: "40+ years in design, engineering and site supervision.", photo: "%%P_SOJAN%%" },
+    { name: "Irshad Hussain", role: "General Manager, Design Services", org: "21 Knots", bio: "Naval architect with 18 years in design and marine vessel management.", photo: "%%P_IRSHAD%%" },
+    { name: "Sivapriya", role: "COO", org: "Zeroqu", bio: "Former Deloitte, with 19 years in corporate strategy.", photo: "%%P_SIVAPRIYA%%" }
   ],
 
   /* ---------- service areas + every service page ---------- */
@@ -209,9 +233,9 @@ const CONTENT = {
     },
     "software-solutions": {
       title: "Software Solutions", area: "marine-services", art: "grid",
-      intro: "Smart software for designing and running more efficient ships, developed with our group company Zeroqu Solutions in Rotterdam.",
+      intro: "Maritime software from our group company Zeroqu: vessel performance, emissions insights, hull and propeller analytics, voyage optimisation and compliance support, alongside design software solutions.",
       blocks: [
-        { title: "Zeroqu Solutions", text: "Our Rotterdam group company builds the digital tools behind our engineering work. Visit zeroqu.com for products and demos.", items: ["Engineering software for efficient ship design", "Digital tools for fleet performance", "Developed in Rotterdam, The Netherlands"], href: "https://zeroqu.com", hrefLabel: "Visit zeroqu.com" }
+        { title: "Zeroqu Maritime Software", text: "Zeroqu, our Rotterdam group company, helps clients achieve sustainable operations and compliance. Visit zeroqu.com for products and demos.", items: ["Vessel performance", "Emissions insights", "Hull & propeller analytics", "Voyage optimisation", "Compliance support", "Design software solutions"], href: "https://zeroqu.com", hrefLabel: "Visit zeroqu.com" }
       ]
     },
     "advance-engineering-solutions": {
@@ -315,7 +339,7 @@ const CONTENT = {
   careers: {
     title: "Build ships and offshore assets with us.",
     text: "We're always looking for naval architects, structural, electrical and marine engineers who care about getting the details right. Send us your CV and a short note about the work you want to do.",
-    culture: "Our team of 50+ naval architects, structural, electrical and marine engineers pairs industry experience with enthusiasm, creativity and dedication, and works across offices in Thane, Singapore and Ajman.",
+    culture: "Our team of 200+ naval architects, structural, electrical and marine engineers pairs industry experience with enthusiasm, creativity and dedication, and works across offices in Thane, Singapore and Ajman.",
     linkedin: "https://www.linkedin.com/company/3706553/"
   },
 
