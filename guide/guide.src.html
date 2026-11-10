@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>21 Knots Website Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&display=swap" rel="stylesheet">
+<style>
+/* Same tokens as the 21 Knots site. Layout: one readable column of short numbered steps and cards. */
+:root {
+  --brand: #1A7F99; --brand-logo: #259BB5; --mint: #6BC6B0; --brand-tint: #E6F3F6;
+  --ink: #0B1D26; --ink-2: #485C66; --ink-3: #85989F; --line: #DCE6EA; --wash: #F2F7F8; --paper: #fff;
+  --font: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: var(--brand); text-underline-offset: 3px; }
+code { font-family: inherit; font-size: .92em; background: var(--brand-tint); color: var(--brand); padding: 1px 7px; border-radius: 6px; font-weight: 500; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
+header { padding: 40px 0 0; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.top img { height: 32px; width: auto; display: block; }
+.pill { display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: 999px; background: var(--wash); font-size: .8125rem; color: var(--ink-2); }
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--brand); }
+.hero { margin-top: 48px; padding: clamp(28px, 5vw, 56px); border-radius: 28px; background-color: var(--brand); color: #fff;
+  background-image: linear-gradient(rgba(255,255,255,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.09) 1px, transparent 1px); background-size: 40px 40px; }
+h1 { margin: 0; font-size: clamp(2.2rem, 5.4vw, 3.8rem); line-height: 1.02; letter-spacing: -0.045em; font-weight: 500; text-wrap: balance; max-width: 16ch; }
+.hero p { margin: 16px 0 0; max-width: 52ch; color: rgba(255,255,255,.86); font-size: 1.0625rem; }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.toc a { color: #fff; text-decoration: none; font-size: .875rem; padding: 7px 14px; border-radius: 999px; background: rgba(255,255,255,.14); }
+.toc a:hover { background: rgba(255,255,255,.26); }
+section { padding-top: clamp(56px, 8vw, 88px); }
+.eyebrow { font-size: .875rem; color: var(--brand); font-weight: 500; }
+h2 { margin: 6px 0 10px; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: -0.035em; line-height: 1.1; font-weight: 500; text-wrap: balance; }
+.intro { color: var(--ink-2); max-width: 60ch; margin: 0 0 24px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.card { border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; background: #fff; }
+.card b { display: block; font-weight: 500; font-size: 1.0625rem; letter-spacing: -0.01em; }
+.card span { display: block; margin-top: 4px; color: var(--ink-2); font-size: .9063rem; }
+.card--blue { background: var(--brand-tint); border-color: transparent; }
+ol.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: s; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; padding: 16px 18px; border-radius: 16px; background: var(--wash); }
+ol.steps li::before { content: counter(s); width: 32px; height: 32px; border-radius: 10px; background: var(--brand); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: .9375rem; }
+ol.steps b { font-weight: 500; }
+ol.steps p { margin: 2px 0 0; color: var(--ink-2); font-size: .9375rem; }
+table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+th, td { text-align: left; padding: 12px 12px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 500; color: var(--ink-3); font-size: .8125rem; border-bottom-color: var(--ink); }
+td:first-child { font-weight: 500; white-space: nowrap; }
+.table-wrap { overflow-x: auto; }
+.note { margin-top: 18px; padding: 16px 18px; border-radius: 14px; border-left: 3px solid var(--mint); background: #EEF8F5; color: var(--ink-2); font-size: .9375rem; }
+footer { margin: clamp(64px, 9vw, 104px) 0 0; padding: 26px 0 40px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: .875rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 4px; }
+@media (max-width: 560px) { td:first-child { white-space: normal; } }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="top"><img src="%%LOGO%%" alt="21 Knots"><span class="pill">Website guide · November 2026</span></div>
+  <div class="hero">
+    <h1>How the new 21 Knots website works</h1>
+    <p>A short guide for the team: what is on the site, how visitors use it, how to change content, and how to keep it safe.</p>
+    <nav class="toc" aria-label="Contents">
+      <a href="#pages">Pages</a><a href="#using">Using the site</a><a href="#editing">Changing content</a><a href="#publishing">Publishing</a><a href="#security">Security</a><a href="#open">Still to do</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="pages">
+    <span class="eyebrow">Pages</span>
+    <h2>What is on the site</h2>
+    <p class="intro">57 pages in total. Every page from the old site keeps its exact web address, so old links and Google results still work.</p>
+    <div class="grid">
+      <div class="card card--blue"><b>Home</b><span>Ocean hero, service areas, offices globe, projects, contact prompt.</span></div>
+      <div class="card"><b>About Us</b><span>Growth journey, values, team photo, leadership, group companies, offices.</span></div>
+      <div class="card"><b>Services</b><span>3 area pages, 16 service pages, 25 detailed sub-service pages.</span></div>
+      <div class="card"><b>Projects</b><span>Filterable project list and a page for each of the 4 projects.</span></div>
+      <div class="card"><b>Careers</b><span>Life at 21 Knots and how to apply by email.</span></div>
+      <div class="card"><b>Contact Us</b><span>Message form, quick contacts and all 5 offices.</span></div>
+    </div>
+  </section>
+
+  <section id="using">
+    <span class="eyebrow">Using the site</span>
+    <h2>What visitors can do</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th scope="col">Feature</th><th scope="col">How it works</th></tr></thead>
+      <tbody>
+        <tr><td>Main menu</td><td>Hover or click <b>Services</b> to see every service in one panel. On phones, tap the menu button at the top right.</td></tr>
+        <tr><td>Service panels (home)</td><td>Three panels: Design &amp; Engineering, Offshore, Power &amp; Industrial. Point at or tap one to open its list of services.</td></tr>
+        <tr><td>Offices globe (home)</td><td>Drag to spin. Click a pin to turn the globe to that office and see its address, email and a map link.</td></tr>
+        <tr><td>Growth journey (About)</td><td>Scroll down: the line fills and each year lights up as you reach it.</td></tr>
+        <tr><td>Project filters</td><td>On Projects, choose a category such as Green retrofit to narrow the list.</td></tr>
+        <tr><td>Contact form</td><td>Pick a topic, fill in name, email and message, then <b>Send message</b>. Errors are explained under each field.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="editing">
+    <span class="eyebrow">Changing content</span>
+    <h2>Edit one place, the whole site updates</h2>
+    <p class="intro">All text, offices, people and projects live in one block called <code>CONTENT</code> near the top of the site's script. Change a value there and every page that uses it updates.</p>
+    <ol class="steps">
+      <li><div><b>Open the site file</b><p>Open <code>index.html</code> in a code editor and search for <code>const CONTENT</code>.</p></div></li>
+      <li><div><b>Find the section you need</b><p><code>offices</code> for addresses and emails, <code>leadership</code> for names and photos, <code>projects</code> for case studies, <code>journey</code> for the timeline, <code>privacy</code> for the policy text.</p></div></li>
+      <li><div><b>Change the text between the quotes</b><p>Keep the quotes and commas. For example, to add a phone number: <code>phones: ["+65 9778 4324"]</code>.</p></div></li>
+      <li><div><b>Check it, then publish</b><p>Open the file in a browser, click through the page you changed, then upload it (see Publishing).</p></div></li>
+    </ol>
+    <p class="note">Adding photos: put the image in the <code>photo</code> or <code>img</code> field as a file path such as <code>/assets/team.webp</code>. Pages without a photo show a blueprint drawing instead.</p>
+  </section>
+
+  <section id="publishing">
+    <span class="eyebrow">Publishing</span>
+    <h2>Putting it live</h2>
+    <ol class="steps">
+      <li><div><b>Turn on normal web addresses</b><p>Add <code>&lt;script&gt;window.SITE_ROUTER = "path"&lt;/script&gt;</code> before the site scripts, so pages use <code>/design-services/</code> instead of <code>#design-services</code>.</p></div></li>
+      <li><div><b>Upload the deploy pack</b><p>Upload <code>index.html</code>, <code>sitemap.xml</code>, <code>robots.txt</code>, the <code>.well-known</code> folder and either <code>vercel.json</code> (Vercel) or <code>.htaccess</code> (Apache).</p></div></li>
+      <li><div><b>Connect the contact form</b><p>Set <code>window.SITE_FORM_ENDPOINT</code> to your form service address (https only), and add that domain to the security policy.</p></div></li>
+      <li><div><b>Tell Google</b><p>Submit <code>https://21-knots.com/sitemap.xml</code> in Google Search Console.</p></div></li>
+    </ol>
+  </section>
+
+  <section id="security">
+    <span class="eyebrow">Security</span>
+    <h2>How the site stays safe</h2>
+    <div class="grid">
+      <div class="card"><b>No login, no database</b><span>Nothing for attackers to break into on the site itself.</span></div>
+      <div class="card"><b>Security headers</b><span>Strict content policy, HTTPS only, no framing, no MIME sniffing.</span></div>
+      <div class="card"><b>Spam-resistant form</b><span>Hidden trap field, time check, one message per 30 seconds.</span></div>
+      <div class="card"><b>Old WordPress retired</b><span>Login and XML-RPC addresses blocked once the new site is live.</span></div>
+    </div>
+    <p class="note">Full details are in <code>SECURITY-AUDIT.md</code> in the deploy pack. Re-check yearly at securityheaders.com and renew the date in <code>security.txt</code>.</p>
+  </section>
+
+  <section id="open">
+    <span class="eyebrow">Still to do</span>
+    <h2>Content to confirm before launch</h2>
+    <div class="grid">
+      <div class="card"><b>Project case studies</b><span>Paste the full text of the 4 projects.</span></div>
+      <div class="card"><b>Privacy policy wording</b><span>Replace with the exact legal text.</span></div>
+      <div class="card"><b>Undertaking documents</b><span>Add the two document images.</span></div>
+      <div class="card"><b>New Jersey company name</b><span>Currently shown as "21 Knots, USA".</span></div>
+      <div class="card"><b>Timeline years</b><span>Confirm 2024 for Zeroqu and the 2025 wording.</span></div>
+      <div class="card"><b>Careers email</b><span>Confirm careers@21-knots.com.</span></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap"><span>21 Knots Design &amp; Consulting · Website guide</span><span>Questions: <a href="mailto:info@21-knots.com">info@21-knots.com</a></span></footer>
+</body>
+</html>

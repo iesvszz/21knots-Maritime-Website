@@ -1,0 +1,46 @@
+# 21 Knots redesign: Apache rules (use if the new site stays on Apache/cPanel)
+RewriteEngine On
+
+# collapse double slashes left by old internal links (e.g. //design-services/)
+RewriteCond %{THE_REQUEST} \s[^\s]*//
+RewriteRule ^(.*)$ /$1 [R=301,L,NE]
+
+# enforce trailing slash, as on the WordPress site
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]*[^/])$ /$1/ [R=301,L]
+
+# old URLs that changed
+Redirect 301 /about/ https://21-knots.com/about-21knots/
+Redirect 301 /about-us/ https://21-knots.com/about-21knots/
+Redirect 301 /contact/ https://21-knots.com/contact-us/
+Redirect 301 /policy/ https://21-knots.com/privacy-policy/
+Redirect 301 /marine/ https://21-knots.com/marine-services/
+
+
+# ---------- security headers (needs mod_headers) ----------
+<IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+  Header always unset X-Powered-By
+  Header unset Server
+</IfModule>
+
+# no directory listings, no access to hidden or backup files
+Options -Indexes
+<FilesMatch "(^\.(?!well-known)|\.(bak|sql|log|ini|env|sh|md|csv)$)">
+  Require all denied
+</FilesMatch>
+
+# retire WordPress endpoints that bots still probe
+RedirectMatch 410 ^/(xmlrpc\.php|wp-login\.php|wp-admin/.*)$
+
+# single-page app fallback: every route is served by index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /index.html [L]

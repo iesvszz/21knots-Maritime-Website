@@ -1,0 +1,6 @@
+from,to,status,reason
+/about/,/about-21knots/,301,"Footer "About us" on the old site pointed here"
+/about-us/,/about-21knots/,301,"Common guess / old backlinks"
+/contact/,/contact-us/,301,"Common guess / old backlinks"
+/policy/,/privacy-policy/,301,"Old "Policy" menu parent had a broken href (https://policy)"
+/marine/,/marine-services/,301,"Footer label was "Marine""
