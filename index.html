@@ -815,6 +815,34 @@ p { text-wrap: pretty; }
   .segments { grid-template-columns: 1fr 1fr; }
 }
 
+/* vessel-type arc carousel */
+.arc { position: relative; margin-inline: calc(50% - 50vw); }
+.arc-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; background: radial-gradient(70% 60% at 18% 50%, var(--brand-tint), transparent 70%); }
+.arc-card { position: absolute; left: 0; top: 0; border-radius: 18px; overflow: hidden; will-change: transform; cursor: pointer; box-shadow: 0 1px 2px rgba(11,29,38,.08), 0 24px 50px -18px rgba(11,29,38,.45); transition: filter .5s; }
+.arc-card.is-flat { box-shadow: 0 1px 2px rgba(11,29,38,.1), 0 40px 80px -24px rgba(11,29,38,.55); }
+.arc-card:not(.is-flat) { filter: saturate(.75) brightness(.96); }
+.arc-art { position: absolute; inset: 8% 10% 16%; display: grid; place-items: center; }
+.arc-art svg { width: 100%; height: 100%; }
+.arc-tag { position: absolute; left: 16px; bottom: 12px; font-size: .8125rem; font-weight: 500; color: rgba(255,255,255,.9); }
+.arc-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
+.arc-cap { position: absolute; right: 6vw; transform: translateY(-50%); max-width: 30rem; z-index: 999; }
+.arc-num { font-size: .875rem; color: var(--ink-3); font-variant-numeric: tabular-nums; margin-bottom: 18px; }
+.arc-num b { color: var(--brand); font-weight: 600; }
+.arc-title { font-size: clamp(2.6rem, 5.6vw, 5.6rem); line-height: .96; letter-spacing: -0.045em; font-weight: 500; }
+.arc-meta { margin-top: 18px; color: var(--ink-2); font-size: 1.0625rem; max-width: 34ch; }
+.arc-cap.swap .arc-num, .arc-cap.swap .arc-title, .arc-cap.swap .arc-meta { animation: capin .6s var(--ease-out) both; }
+.arc-cap.swap .arc-title { animation-delay: .05s; } .arc-cap.swap .arc-meta { animation-delay: .1s; }
+@keyframes capin { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.arc-dots { display: flex; gap: 8px; margin-top: 30px; }
+.arc-dots button { width: 26px; height: 4px; border-radius: 4px; background: var(--line); transition: background-color .4s, width .5s var(--ease-out); }
+.arc-dots button.is-on { width: 48px; background: var(--brand); }
+.arc-hint { position: absolute; right: 6vw; bottom: 28px; font-size: .8125rem; color: var(--ink-3); }
+.arc-cap.is-narrow { left: 0 !important; right: 0; top: auto !important; bottom: 0; transform: none; max-width: none; padding: 70px var(--gutter) 28px; background: linear-gradient(to top, #fff calc(100% - 70px), transparent); }
+.arc-cap.is-narrow .arc-title { font-size: 2.3rem; }
+.arc-cap.is-narrow .arc-meta { font-size: .9688rem; margin-top: 10px; }
+.arc-cap.is-narrow .arc-dots { margin-top: 18px; }
+.arc-cap.is-narrow ~ .arc-hint { display: none; }
+
 /* spotlight hover for cards */
 .spot { position: relative; isolation: isolate; }
 .spot::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 2; opacity: 0; transition: opacity .4s;
@@ -1280,8 +1308,12 @@ const CONTENT = {
   ],
   classSocieties: ["ClassNK", "RINA", "DNV", "IRS", "ABS", "LR", "BV"],
   clientSegments: [
-    { t: "Containers", art: "hull" }, { t: "Bulk carriers", art: "hold" }, { t: "Tankers", art: "bodyplan" },
-    { t: "Offshore", art: "jacket" }, { t: "Cruise", art: "catamaran" }, { t: "Shipyards", art: "crane" }
+    { t: "Containers", art: "hull", m: "Owners and operators: retrofits, EEXI & CII files and structural modifications." },
+    { t: "Bulk carriers", art: "hold", m: "Cargo hold modifications, BWTS retrofits, dry docking and condition surveys." },
+    { t: "Tankers", art: "bodyplan", m: "Scrubber and ballast water retrofits, stability and naval architecture." },
+    { t: "Offshore", art: "jacket", m: "Fixed platforms, floaters, subsea, transportation and installation." },
+    { t: "Cruise", art: "catamaran", m: "Design, conversions and outfitting for passenger vessels." },
+    { t: "Shipyards", art: "crane", m: "Production design, facility design and capacity studies." }
   ],
   portfolios: [
     { title: "Fleet Technical Support", text: "Hands-on support for vessels in service, from dry dock to delivery.", art: "scan",
@@ -1905,8 +1937,22 @@ const portfoliosBlock = () => `
     </article>`).join("")}
   </div>`;
 
-const clientsBlock = () => `
-  <div class="segments">${C.clientSegments.map((c, k) => `<div class="seg" data-reveal style="--delay:${k * .05}s"><div class="seg-art bp" aria-hidden="true">${Art(c.art)}</div><b>${esc(c.t)}</b></div>`).join("")}</div>`;
+const clientsBlock = () => {
+  const it = C.clientSegments, n = Math.ceil(10 / it.length) * it.length;
+  return `
+  <div class="arc" data-arc data-n="${it.length}" role="region" aria-roledescription="carousel" aria-label="Vessel types we work on">
+    <div class="arc-stage">
+      ${Array.from({ length: n }, (_, i) => { const c = it[i % it.length]; return `<div class="arc-card bp"${i < it.length ? ` tabindex="0" role="button" aria-label="${esc(c.t)}, ${i + 1} of ${it.length}"` : ' aria-hidden="true"'} data-i="${i}"><div class="arc-art">${Art(c.art)}</div><span class="arc-tag">${esc(c.t)}</span></div>`; }).join("")}
+      <div class="arc-cap" aria-live="polite">
+        <p class="arc-num"><b>01</b> / ${String(it.length).padStart(2, "0")}</p>
+        <h3 class="arc-title">${esc(it[0].t)}</h3>
+        <p class="arc-meta">${esc(it[0].m)}</p>
+        <div class="arc-dots">${it.map((c, k) => `<button aria-label="Show ${esc(c.t)}" data-go="${k}"${k === 0 ? ' class="is-on"' : ""}></button>`).join("")}</div>
+      </div>
+      <span class="arc-hint" aria-hidden="true">Scroll to turn</span>
+    </div>
+  </div>`;
+};
 
 /* ---------------- HOME ---------------- */
 function viewHome() {
@@ -2725,6 +2771,66 @@ const ALIASES = { about: "about-21knots", "about-us": "about-21knots", contact: 
     });
   }
 
+  /* arc carousel: cards on the rim of a wheel whose hub sits off the left edge; scroll turns it, release snaps */
+  function arcs(root) {
+    $$("[data-arc]", root).forEach(track => {
+      const stage = $(".arc-stage", track), cards = $$(".arc-card", track), cap = $(".arc-cap", track);
+      const count = +track.dataset.n, n = cards.length, steps = count - 1, STEP = 14, PER = .6;
+      const items = CONTENT.clientSegments;
+      let g = {}, pos = 0, target = 0, idx = -1, snapT;
+      const off = (i, p) => { const d = (((i - p) % n) + n) % n; return d >= n / 2 ? d - n : d; };
+      const size = () => {
+        const w = stage.clientWidth, h = stage.clientHeight, u = Math.min(h, w / .47);
+        if (w < 760) {
+          const cardW = Math.min(w * .64, 300), radius = w * 1.15;
+          g = { cardW, cardH: cardW / 1.2, radius, hubX: w * .5 - radius, hubY: h * .34, step: 17 };
+        } else {
+          const cardW = .33 * u;
+          g = { cardW, cardH: cardW / 1.2, radius: .74 * u, hubX: .3 * u - .74 * u, hubY: .5 * h, step: 15 };
+        }
+        cards.forEach(c => { c.style.width = g.cardW + "px"; c.style.height = g.cardH + "px"; });
+        track.style.height = `calc(100svh * ${1 + steps * PER})`;
+        const narrow = w < .9 * h || w < 760;
+        cap.classList.toggle("is-narrow", narrow);
+        if (!narrow) { cap.style.top = g.hubY + "px"; cap.style.left = Math.max(g.hubX + g.radius + g.cardW / 2 + 60, w * .5) + "px"; }
+        draw();
+      };
+      const draw = () => {
+        cards.forEach((el, i) => {
+          const d = off(i, pos), a = -d * g.step * Math.PI / 180;
+          const x = g.hubX + g.radius * Math.cos(a), y = g.hubY + g.radius * Math.sin(a);
+          el.style.transform = `translate3d(${(x - g.cardW / 2).toFixed(1)}px,${(y - g.cardH / 2).toFixed(1)}px,0) rotate(${(-d * g.step).toFixed(2)}deg)`;
+          el.style.zIndex = Math.round((n - d) * 10);
+          el.classList.toggle("is-flat", Math.abs(d) < .5);
+        });
+        const now = ((Math.round(pos) % count) + count) % count;
+        if (now !== idx) {
+          idx = now; const it = items[now];
+          $(".arc-num b", cap).textContent = String(now + 1).padStart(2, "0");
+          $(".arc-title", cap).textContent = it.t; $(".arc-meta", cap).textContent = it.m;
+          $$(".arc-dots button", cap).forEach((b, k) => b.classList.toggle("is-on", k === now));
+          cap.classList.remove("swap"); void cap.offsetWidth; if (!RM) cap.classList.add("swap");
+        }
+      };
+      const range = () => { const r = track.getBoundingClientRect(); return { top: r.top + scrollY, len: r.height - innerHeight }; };
+      const goTo = k => { const { top, len } = range(); Smooth.to(top + (k / steps) * len); };
+      cards.forEach(c => { const go = () => goTo(+c.dataset.i % count); c.addEventListener("click", go); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } }); });
+      $$(".arc-dots button", cap).forEach(b => b.addEventListener("click", () => goTo(+b.dataset.go)));
+      const ro = new ResizeObserver(size); ro.observe(stage); keep(() => ro.disconnect());
+      const onScroll = () => {
+        const { top, len } = range(), p = clamp((scrollY - top) / len); target = p * steps;
+        clearTimeout(snapT);
+        if (!RM && p > 0 && p < 1) snapT = setTimeout(() => { if (!Smooth.running) goTo(Math.round(target)); }, 180);
+      };
+      addEventListener("scroll", onScroll, { passive: true }); keep(() => { removeEventListener("scroll", onScroll); clearTimeout(snapT); });
+      onScroll(); pos = target; size();
+      keep(onFrame(() => {
+        if (Math.abs(target - pos) < 1e-3) { if (pos !== target) { pos = target; draw(); } return; }
+        pos = RM ? target : pos + (target - pos) * .12; draw();
+      }));
+    });
+  }
+
   function accordions(root) {
     $$(".srow", root).forEach(row => {
       $(".srow-head", row).addEventListener("click", () => {
@@ -3242,7 +3348,7 @@ void main(){
   }
 
   function initPage(root) {
-    splitText(root); scrubStatements(root); accordions(root); servicePanels(root); previews(root); hscroll(root);
+    splitText(root); scrubStatements(root); accordions(root); servicePanels(root); arcs(root); previews(root); hscroll(root);
     processLine(root); clocks(root); ticker(root); magnetic(root); jumps(root); contactForm(root); projectFilter(root); ocean(root); globe(root); spotlight(root); heroPanel(root); journeyLine(root);
     observe(root); magnetic(document.body);
   }

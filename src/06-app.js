@@ -196,6 +196,66 @@
     });
   }
 
+  /* arc carousel: cards on the rim of a wheel whose hub sits off the left edge; scroll turns it, release snaps */
+  function arcs(root) {
+    $$("[data-arc]", root).forEach(track => {
+      const stage = $(".arc-stage", track), cards = $$(".arc-card", track), cap = $(".arc-cap", track);
+      const count = +track.dataset.n, n = cards.length, steps = count - 1, STEP = 14, PER = .6;
+      const items = CONTENT.clientSegments;
+      let g = {}, pos = 0, target = 0, idx = -1, snapT;
+      const off = (i, p) => { const d = (((i - p) % n) + n) % n; return d >= n / 2 ? d - n : d; };
+      const size = () => {
+        const w = stage.clientWidth, h = stage.clientHeight, u = Math.min(h, w / .47);
+        if (w < 760) {
+          const cardW = Math.min(w * .64, 300), radius = w * 1.15;
+          g = { cardW, cardH: cardW / 1.2, radius, hubX: w * .5 - radius, hubY: h * .34, step: 17 };
+        } else {
+          const cardW = .33 * u;
+          g = { cardW, cardH: cardW / 1.2, radius: .74 * u, hubX: .3 * u - .74 * u, hubY: .5 * h, step: 15 };
+        }
+        cards.forEach(c => { c.style.width = g.cardW + "px"; c.style.height = g.cardH + "px"; });
+        track.style.height = `calc(100svh * ${1 + steps * PER})`;
+        const narrow = w < .9 * h || w < 760;
+        cap.classList.toggle("is-narrow", narrow);
+        if (!narrow) { cap.style.top = g.hubY + "px"; cap.style.left = Math.max(g.hubX + g.radius + g.cardW / 2 + 60, w * .5) + "px"; }
+        draw();
+      };
+      const draw = () => {
+        cards.forEach((el, i) => {
+          const d = off(i, pos), a = -d * g.step * Math.PI / 180;
+          const x = g.hubX + g.radius * Math.cos(a), y = g.hubY + g.radius * Math.sin(a);
+          el.style.transform = `translate3d(${(x - g.cardW / 2).toFixed(1)}px,${(y - g.cardH / 2).toFixed(1)}px,0) rotate(${(-d * g.step).toFixed(2)}deg)`;
+          el.style.zIndex = Math.round((n - d) * 10);
+          el.classList.toggle("is-flat", Math.abs(d) < .5);
+        });
+        const now = ((Math.round(pos) % count) + count) % count;
+        if (now !== idx) {
+          idx = now; const it = items[now];
+          $(".arc-num b", cap).textContent = String(now + 1).padStart(2, "0");
+          $(".arc-title", cap).textContent = it.t; $(".arc-meta", cap).textContent = it.m;
+          $$(".arc-dots button", cap).forEach((b, k) => b.classList.toggle("is-on", k === now));
+          cap.classList.remove("swap"); void cap.offsetWidth; if (!RM) cap.classList.add("swap");
+        }
+      };
+      const range = () => { const r = track.getBoundingClientRect(); return { top: r.top + scrollY, len: r.height - innerHeight }; };
+      const goTo = k => { const { top, len } = range(); Smooth.to(top + (k / steps) * len); };
+      cards.forEach(c => { const go = () => goTo(+c.dataset.i % count); c.addEventListener("click", go); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } }); });
+      $$(".arc-dots button", cap).forEach(b => b.addEventListener("click", () => goTo(+b.dataset.go)));
+      const ro = new ResizeObserver(size); ro.observe(stage); keep(() => ro.disconnect());
+      const onScroll = () => {
+        const { top, len } = range(), p = clamp((scrollY - top) / len); target = p * steps;
+        clearTimeout(snapT);
+        if (!RM && p > 0 && p < 1) snapT = setTimeout(() => { if (!Smooth.running) goTo(Math.round(target)); }, 180);
+      };
+      addEventListener("scroll", onScroll, { passive: true }); keep(() => { removeEventListener("scroll", onScroll); clearTimeout(snapT); });
+      onScroll(); pos = target; size();
+      keep(onFrame(() => {
+        if (Math.abs(target - pos) < 1e-3) { if (pos !== target) { pos = target; draw(); } return; }
+        pos = RM ? target : pos + (target - pos) * .12; draw();
+      }));
+    });
+  }
+
   function accordions(root) {
     $$(".srow", root).forEach(row => {
       $(".srow-head", row).addEventListener("click", () => {
@@ -713,7 +773,7 @@ void main(){
   }
 
   function initPage(root) {
-    splitText(root); scrubStatements(root); accordions(root); servicePanels(root); previews(root); hscroll(root);
+    splitText(root); scrubStatements(root); accordions(root); servicePanels(root); arcs(root); previews(root); hscroll(root);
     processLine(root); clocks(root); ticker(root); magnetic(root); jumps(root); contactForm(root); projectFilter(root); ocean(root); globe(root); spotlight(root); heroPanel(root); journeyLine(root);
     observe(root); magnetic(document.body);
   }

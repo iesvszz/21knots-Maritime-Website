@@ -100,8 +100,22 @@ const portfoliosBlock = () => `
     </article>`).join("")}
   </div>`;
 
-const clientsBlock = () => `
-  <div class="segments">${C.clientSegments.map((c, k) => `<div class="seg" data-reveal style="--delay:${k * .05}s"><div class="seg-art bp" aria-hidden="true">${Art(c.art)}</div><b>${esc(c.t)}</b></div>`).join("")}</div>`;
+const clientsBlock = () => {
+  const it = C.clientSegments, n = Math.ceil(10 / it.length) * it.length;
+  return `
+  <div class="arc" data-arc data-n="${it.length}" role="region" aria-roledescription="carousel" aria-label="Vessel types we work on">
+    <div class="arc-stage">
+      ${Array.from({ length: n }, (_, i) => { const c = it[i % it.length]; return `<div class="arc-card bp"${i < it.length ? ` tabindex="0" role="button" aria-label="${esc(c.t)}, ${i + 1} of ${it.length}"` : ' aria-hidden="true"'} data-i="${i}"><div class="arc-art">${Art(c.art)}</div><span class="arc-tag">${esc(c.t)}</span></div>`; }).join("")}
+      <div class="arc-cap" aria-live="polite">
+        <p class="arc-num"><b>01</b> / ${String(it.length).padStart(2, "0")}</p>
+        <h3 class="arc-title">${esc(it[0].t)}</h3>
+        <p class="arc-meta">${esc(it[0].m)}</p>
+        <div class="arc-dots">${it.map((c, k) => `<button aria-label="Show ${esc(c.t)}" data-go="${k}"${k === 0 ? ' class="is-on"' : ""}></button>`).join("")}</div>
+      </div>
+      <span class="arc-hint" aria-hidden="true">Scroll to turn</span>
+    </div>
+  </div>`;
+};
 
 /* ---------------- HOME ---------------- */
 function viewHome() {

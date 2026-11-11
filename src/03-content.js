@@ -112,8 +112,12 @@ const CONTENT = {
   ],
   classSocieties: ["ClassNK", "RINA", "DNV", "IRS", "ABS", "LR", "BV"],
   clientSegments: [
-    { t: "Containers", art: "hull" }, { t: "Bulk carriers", art: "hold" }, { t: "Tankers", art: "bodyplan" },
-    { t: "Offshore", art: "jacket" }, { t: "Cruise", art: "catamaran" }, { t: "Shipyards", art: "crane" }
+    { t: "Containers", art: "hull", m: "Owners and operators: retrofits, EEXI & CII files and structural modifications." },
+    { t: "Bulk carriers", art: "hold", m: "Cargo hold modifications, BWTS retrofits, dry docking and condition surveys." },
+    { t: "Tankers", art: "bodyplan", m: "Scrubber and ballast water retrofits, stability and naval architecture." },
+    { t: "Offshore", art: "jacket", m: "Fixed platforms, floaters, subsea, transportation and installation." },
+    { t: "Cruise", art: "catamaran", m: "Design, conversions and outfitting for passenger vessels." },
+    { t: "Shipyards", art: "crane", m: "Production design, facility design and capacity studies." }
   ],
   portfolios: [
     { title: "Fleet Technical Support", text: "Hands-on support for vessels in service, from dry dock to delivery.", art: "scan",
