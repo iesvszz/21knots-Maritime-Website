@@ -92,8 +92,9 @@ const credentialsBlock = () => `
   <div class="classbar" data-reveal><span class="classbar-l">Experienced with leading classification societies</span><ul>${C.classSocieties.map(c => `<li>${esc(c)}</li>`).join("")}</ul></div>`;
 
 const portfoliosBlock = () => `
-  <div class="portfolios">
-    ${C.portfolios.map((p, k) => `<article class="pf${k === 1 ? " pf--blue" : ""} spot" data-reveal style="--delay:${k * .08}s">
+  <div class="portfolios" data-reveal>
+    <div class="pf-link" aria-hidden="true"><i></i><b></b><b></b><b></b></div>
+    ${C.portfolios.map((p, k) => `<article class="pf${k === 1 ? " pf--blue" : ""} spot">
       <div class="pf-art${k === 1 ? "" : " bp"}" aria-hidden="true">${Art(p.art)}</div>
       <div class="pf-head">${p.logo ? `<img class="pf-logo" src="${p.logo}" alt="${esc(p.title)}">` : `<h3>${esc(p.title)}</h3>`}<p>${esc(p.text)}</p></div>
       <ul>${p.items.map(([t, h]) => `<li><a href="${L(h)}">${esc(t)}${Icon.arrow}</a></li>`).join("")}</ul>
