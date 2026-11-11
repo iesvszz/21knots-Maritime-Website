@@ -820,6 +820,9 @@ p { text-wrap: pretty; }
 /* vessel-type arc carousel */
 .arc { position: relative; margin-inline: calc(50% - 50vw); }
 .arc-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; background: radial-gradient(70% 60% at 18% 50%, var(--brand-tint), transparent 70%); }
+.arc-stage::before, .arc-stage::after { content: ""; position: absolute; left: 0; right: 0; height: 22%; z-index: 990; pointer-events: none; }
+.arc-stage::before { top: 0; background: linear-gradient(#fff 8%, rgba(255,255,255,0)); }
+.arc-stage::after { bottom: 0; background: linear-gradient(rgba(255,255,255,0), #fff 92%); }
 .arc-card { position: absolute; left: 0; top: 0; border-radius: 18px; overflow: hidden; will-change: transform; cursor: pointer; box-shadow: 0 1px 2px rgba(11,29,38,.08), 0 24px 50px -18px rgba(11,29,38,.45); transition: filter .5s; }
 .arc-card.is-flat { box-shadow: 0 1px 2px rgba(11,29,38,.1), 0 40px 80px -24px rgba(11,29,38,.55); }
 .arc-card:not(.is-flat) { filter: saturate(.75) brightness(.96); }
@@ -841,7 +844,7 @@ p { text-wrap: pretty; }
 .arc-dots { display: flex; gap: 8px; margin-top: 30px; }
 .arc-dots button { width: 26px; height: 4px; border-radius: 4px; background: var(--line); transition: background-color .4s, width .5s var(--ease-out); }
 .arc-dots button.is-on { width: 48px; background: var(--brand); }
-.arc-hint { position: absolute; right: 6vw; bottom: 28px; font-size: .8125rem; color: var(--ink-3); }
+.arc-hint { z-index: 999; position: absolute; right: 6vw; bottom: 28px; font-size: .8125rem; color: var(--ink-3); }
 .arc-cap.is-narrow { left: 0 !important; right: 0; top: auto !important; bottom: 0; transform: none; max-width: none; padding: 70px var(--gutter) 28px; background: linear-gradient(to top, #fff calc(100% - 70px), transparent); }
 .arc-cap.is-narrow .arc-title { font-size: 1.8rem; }
 .arc-cap.is-narrow .arc-head { padding-bottom: 14px; margin-bottom: 14px; }
@@ -1252,14 +1255,18 @@ p { text-wrap: pretty; }
 .cred-top { display: flex; align-items: center; gap: 10px; }
 .cred-ic { width: clamp(28px, 2.6vw, 36px); height: clamp(28px, 2.6vw, 36px); border-radius: 10px; display: grid; place-items: center; background: var(--brand-tint); color: var(--brand); flex: none; }
 .cred-ic svg { width: 55%; height: 55%; }
-.cred-k { font-size: clamp(.6875rem, .9vw, .8125rem); color: var(--ink-2); font-weight: 500; line-height: 1.2; }
+.cred-k { font-size: clamp(.75rem, .95vw, .875rem); color: var(--brand); font-weight: 500; line-height: 1.2; }
 .cred-big { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .cred-big b { font-size: clamp(1.6rem, 3.6vw, 3.2rem); font-weight: 500; letter-spacing: -0.05em; line-height: 1; }
 .cred-big small { font-size: clamp(.625rem, .85vw, .8125rem); color: var(--brand); font-weight: 500; }
 .cred p { font-size: clamp(.6875rem, .95vw, .9063rem); color: var(--ink-2); line-height: 1.45; margin-top: auto; }
 .cred-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
 .cred-chips li { font-size: clamp(.5625rem, .8vw, .75rem); font-weight: 500; padding: 3px 7px; border-radius: 999px; background: var(--wash); border: 1px solid var(--line); }
-.cred--blue { background: var(--brand); border-color: var(--brand); color: #fff; }
+.cred:hover { background: var(--brand); border-color: var(--brand); color: #fff; }
+.cred:hover .cred-k, .cred:hover p { color: rgba(255,255,255,.85); }
+.cred:hover .cred-big small { color: #CDEFF6; }
+.cred:hover .cred-chips li { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.25); color: #fff; }
+.cred, .cred * { transition: background-color .45s var(--ease-out), color .45s, border-color .45s, transform .6s var(--ease-out), box-shadow .6s var(--ease-out); }
 .cred--blue .cred-k, .cred--blue p { color: rgba(255,255,255,.82); }
 .cred--blue .cred-big small { color: #CDEFF6; }
 .cred--blue .cred-ic { background: rgba(255,255,255,.16); color: #fff; }
@@ -2037,8 +2044,8 @@ const credentialsBlock = () => {
   const sub = ["Operating since", "Class societies", "Compliance", "9001:2015"];
   return `
   <div class="creds">
-    ${C.credentials.map((c, k) => `<article class="cred${k === 3 ? " cred--blue" : ""} spot" data-reveal style="--delay:${k * .07}s">
-      <div class="cred-top"><span class="cred-ic">${Icon[ic[k]]}</span><span class="cred-k">${esc(c.k)}</span></div>
+    ${C.credentials.map((c, k) => `<article class="cred" data-reveal style="--delay:${k * .07}s">
+      <span class="cred-k">${esc(c.k)}</span>
       <div class="cred-big"><b>${big[k]}</b><small>${sub[k]}</small></div>
       ${k === 1 ? `<ul class="cred-chips">${C.classSocieties.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : `<p>${esc(c.v)}</p>`}
     </article>`).join("")}

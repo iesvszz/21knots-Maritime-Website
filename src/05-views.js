@@ -90,8 +90,8 @@ const credentialsBlock = () => {
   const sub = ["Operating since", "Class societies", "Compliance", "9001:2015"];
   return `
   <div class="creds">
-    ${C.credentials.map((c, k) => `<article class="cred${k === 3 ? " cred--blue" : ""} spot" data-reveal style="--delay:${k * .07}s">
-      <div class="cred-top"><span class="cred-ic">${Icon[ic[k]]}</span><span class="cred-k">${esc(c.k)}</span></div>
+    ${C.credentials.map((c, k) => `<article class="cred" data-reveal style="--delay:${k * .07}s">
+      <span class="cred-k">${esc(c.k)}</span>
       <div class="cred-big"><b>${big[k]}</b><small>${sub[k]}</small></div>
       ${k === 1 ? `<ul class="cred-chips">${C.classSocieties.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : `<p>${esc(c.v)}</p>`}
     </article>`).join("")}
