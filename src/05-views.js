@@ -85,11 +85,18 @@ const blockBody = b => `
   ${b.href ? `<div style="margin-top:28px">${btn(b.hrefLabel, b.href, "btn--ghost", true)}</div>` : ""}`;
 
 
-const credentialsBlock = () => `
+const credentialsBlock = () => {
+  const big = ["2014", String(C.classSocieties.length), "IT", "ISO"], ic = ["growth", "ship", "shield", "bulb"];
+  const sub = ["Operating since", "Class societies", "Compliance", "9001:2015"];
+  return `
   <div class="creds">
-    ${C.credentials.map((c, k) => `<div class="cred" data-reveal style="--delay:${k * .06}s"><span>${esc(c.k)}</span><p>${esc(c.v)}</p></div>`).join("")}
-  </div>
-  <div class="classbar" data-reveal><span class="classbar-l">Experienced with leading classification societies</span><ul>${C.classSocieties.map(c => `<li>${esc(c)}</li>`).join("")}</ul></div>`;
+    ${C.credentials.map((c, k) => `<article class="cred${k === 3 ? " cred--blue" : ""} spot" data-reveal style="--delay:${k * .07}s">
+      <div class="cred-top"><span class="cred-ic">${Icon[ic[k]]}</span><span class="cred-k">${esc(c.k)}</span></div>
+      <div class="cred-big"><b>${big[k]}</b><small>${sub[k]}</small></div>
+      ${k === 1 ? `<ul class="cred-chips">${C.classSocieties.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : `<p>${esc(c.v)}</p>`}
+    </article>`).join("")}
+  </div>`;
+};
 
 const portfoliosBlock = () => `
   <div class="portfolios" data-reveal>

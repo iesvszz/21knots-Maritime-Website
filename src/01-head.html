@@ -798,11 +798,6 @@ p { text-wrap: pretty; }
 .seg:hover .seg-art { transform: translateY(-4px); }
 .seg-art svg { width: 78%; height: 78%; }
 .seg b { font-weight: 500; font-size: 1.0625rem; letter-spacing: -0.015em; }
-.creds { margin-top: clamp(48px, 6vw, 80px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
-.cred { padding: 22px 22px 0 0; }
-.cred + .cred { padding-left: 22px; border-left: 1px solid var(--line); }
-.cred span { font-size: .8125rem; color: var(--brand); font-weight: 500; }
-.cred p { margin-top: 8px; font-size: .9688rem; color: var(--ink-2); }
 .classbar { margin-top: 36px; padding: 20px 24px; border-radius: var(--r-md); background: var(--wash); display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
 .classbar-l { font-size: .875rem; color: var(--ink-2); }
 .classbar ul { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -815,13 +810,9 @@ p { text-wrap: pretty; }
 @media (max-width: 1100px) {
 
   .segments { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .creds { grid-template-columns: 1fr 1fr; }
-  .cred:nth-child(3) { padding-left: 0; border-left: 0; }
-  .cred:nth-child(n+3) { margin-top: 18px; border-top: 1px solid var(--line); }
 }
 @media (max-width: 640px) {
-  .pillars, .creds { grid-template-columns: 1fr; }
-  .cred, .cred + .cred { padding: 18px 0 0; border-left: 0; }
+  .pillars { grid-template-columns: 1fr; }
   .cred + .cred { margin-top: 18px; border-top: 1px solid var(--line); }
   .segments { grid-template-columns: 1fr 1fr; }
 }
@@ -1253,6 +1244,28 @@ p { text-wrap: pretty; }
 @media (min-width: 601px) and (max-width: 900px) {
   .portfolios .pf { padding: 16px 14px; } .portfolios .pf-head h3 { font-size: 1.15rem; } .portfolios .pf-head p, .portfolios .pf li a { font-size: .8125rem; } .portfolios .pf-logo { height: 20px; }
 }
+
+/* credentials: four compact cards */
+.creds { margin-top: clamp(40px, 5vw, 72px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(8px, 1.2vw, 16px); }
+.cred { border-radius: 18px; border: 1px solid var(--line); background: #fff; padding: clamp(14px, 1.6vw, 22px); display: flex; flex-direction: column; gap: clamp(10px, 1.2vw, 16px); transition: border-color .4s, transform .6s var(--ease-out), box-shadow .6s var(--ease-out); }
+.cred:hover { border-color: transparent; transform: translateY(-4px); box-shadow: 0 26px 50px -32px rgba(11,29,38,.4); }
+.cred-top { display: flex; align-items: center; gap: 10px; }
+.cred-ic { width: clamp(28px, 2.6vw, 36px); height: clamp(28px, 2.6vw, 36px); border-radius: 10px; display: grid; place-items: center; background: var(--brand-tint); color: var(--brand); flex: none; }
+.cred-ic svg { width: 55%; height: 55%; }
+.cred-k { font-size: clamp(.6875rem, .9vw, .8125rem); color: var(--ink-2); font-weight: 500; line-height: 1.2; }
+.cred-big { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.cred-big b { font-size: clamp(1.6rem, 3.6vw, 3.2rem); font-weight: 500; letter-spacing: -0.05em; line-height: 1; }
+.cred-big small { font-size: clamp(.625rem, .85vw, .8125rem); color: var(--brand); font-weight: 500; }
+.cred p { font-size: clamp(.6875rem, .95vw, .9063rem); color: var(--ink-2); line-height: 1.45; margin-top: auto; }
+.cred-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+.cred-chips li { font-size: clamp(.5625rem, .8vw, .75rem); font-weight: 500; padding: 3px 7px; border-radius: 999px; background: var(--wash); border: 1px solid var(--line); }
+.cred--blue { background: var(--brand); border-color: var(--brand); color: #fff; }
+.cred--blue .cred-k, .cred--blue p { color: rgba(255,255,255,.82); }
+.cred--blue .cred-big small { color: #CDEFF6; }
+.cred--blue .cred-ic { background: rgba(255,255,255,.16); color: #fff; }
+@media (max-width: 560px) { .creds { grid-template-columns: 1fr 1fr; } .cred p { -webkit-line-clamp: 3; } }
+.pf-link { display: none !important; }
+.portfolios { padding-top: 0 !important; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
