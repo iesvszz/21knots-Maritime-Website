@@ -206,18 +206,14 @@
       const off = (i, p) => { const d = (((i - p) % n) + n) % n; return d >= n / 2 ? d - n : d; };
       const size = () => {
         const w = stage.clientWidth, h = stage.clientHeight, u = Math.min(h, w / .47);
-        if (w < 760) {
-          const cardW = Math.min(w * .64, 300), radius = w * 1.15;
-          g = { cardW, cardH: cardW / 1.2, radius, hubX: w * .5 - radius, hubY: h * .27, step: 17 };
-        } else {
-          const cardW = .33 * u;
-          g = { cardW, cardH: cardW / 1.2, radius: .74 * u, hubX: .3 * u - .74 * u, hubY: .5 * h, step: 15 };
-        }
+        // one geometry for every aspect ratio: cards scale with the smaller of height and width
+        const cardW = Math.min(.33 * u, (h > w && w >= 600 ? .26 : .34) * w), radius = cardW * 2.25;
+        g = { cardW, cardH: cardW / 1.2, radius, hubX: cardW * .9 - radius, hubY: .5 * h, step: w < 760 ? 18 : 15 };
         cards.forEach(c => { c.style.width = g.cardW + "px"; c.style.height = g.cardH + "px"; });
         track.style.height = `calc(100svh * ${1 + steps * PER})`;
-        const narrow = w < .9 * h || w < 760;
+        const narrow = false;
         cap.classList.toggle("is-narrow", narrow);
-        if (!narrow) { cap.style.top = g.hubY + "px"; cap.style.left = (g.hubX + g.radius + g.cardW / 2 + Math.max(48, w * .05)) + "px"; }
+        if (!narrow) { cap.style.top = g.hubY + "px"; cap.style.left = (g.hubX + g.radius + g.cardW / 2 + Math.max(18, w * .05)) + "px"; }
         draw();
       };
       const draw = () => {
