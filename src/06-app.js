@@ -293,7 +293,6 @@
     const track = $(".hs-track", sec), bar = $(".hs-progress", sec);
     let dist = 0;
     const measure = () => {
-      if (innerWidth <= 900) { sec.style.height = ""; track.style.transform = ""; dist = 0; return; }
       dist = Math.max(0, track.scrollWidth - innerWidth);
       sec.style.height = (innerHeight + dist) + "px";
     };

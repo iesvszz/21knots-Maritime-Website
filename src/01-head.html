@@ -864,6 +864,57 @@ p { text-wrap: pretty; }
   .arc-hint { display: none; }
 }
 
+/* ---------- same components on every screen: scale type and size, keep the behaviour ---------- */
+@media (max-width: 900px) {
+  /* horizontal capabilities: pinned sideways scroll, as on desktop */
+
+  .hs-sticky { position: sticky !important; height: 100svh !important; padding-block: 0 !important; }
+  .hs-track { overflow: visible !important; scroll-snap-type: none !important; padding-bottom: 0 !important; }
+  .cap { width: min(78vw, 360px) !important; height: min(62svh, 480px) !important; }
+  .cap h3 { font-size: 1.35rem; }
+  .cap p { font-size: .875rem; }
+  .hs-progress { display: block !important; width: 90px; }
+  /* service panels: side by side, active one widens */
+  .spanels { flex-direction: row !important; height: min(78svh, 620px) !important; gap: 6px; }
+  .spanel { flex: 1 1 0 !important; min-width: 0; }
+  .spanel.is-active { flex-grow: 5 !important; }
+  .spanel-tab { position: absolute !important; inset: 0 !important; min-height: 0 !important; padding: 14px 8px !important; align-items: center; }
+  .spanel.is-active .spanel-tab { display: flex !important; }
+  .spanel-name { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 1.15rem; max-width: none; }
+  .spanel-count { writing-mode: vertical-rl; transform: rotate(180deg); font-size: .6875rem; }
+  .spanel-plus { position: static !important; margin: 0 !important; width: 32px; height: 32px; }
+  .spanel:not(.is-active) .spanel-art { display: none; }
+  .spanel-body { position: absolute !important; inset: 0 !important; display: flex !important; padding: 18px 16px !important; }
+  .spanel-title { font-size: 1.5rem; max-width: 80%; }
+  .spanel-text { font-size: .8125rem; margin-top: 8px; }
+  .spanel-list { grid-template-columns: 1fr !important; margin-top: auto !important; }
+  .spanel-list a { padding: 8px 0; font-size: .8125rem; }
+  .spanel-all { font-size: .75rem; height: auto; padding: 9px 12px; margin-top: 12px; }
+  /* growth timeline: sticky year on the left, as on desktop */
+  .tl-item { gap: 14px !important; }
+  .tl-side { width: auto !important; max-width: 34% !important; top: 90px !important; }
+  .tl-side .tl-year { display: block !important; padding-left: 58px; font-size: clamp(1.4rem, 6.5vw, 2.6rem); }
+  .tl-dot { left: 4px; }
+  .tl-line { left: 23px; }
+  .tl-body { padding-left: 0 !important; }
+  .tl-year--m { display: none !important; }
+  .tl-title { font-size: 1.15rem; }
+  .tl-text { font-size: .875rem; }
+  .tl-art--2 { grid-template-columns: 1fr 1fr !important; gap: 8px; }
+  /* ship design stages: three columns with a shared progress line */
+  .process { grid-template-columns: repeat(3, minmax(0,1fr)) !important; gap: 0 10px; }
+  .process-line { display: block !important; }
+  .step, .step + .step { padding: 30px 0 0 !important; border-left: 0 !important; }
+  .step::before, .step + .step::before { left: 0 !important; top: -5px !important; }
+  .step h3 { font-size: 1rem; }
+  .step p, .step li { font-size: .75rem; }
+}
+@media (max-width: 480px) {
+  .tl-side { max-width: 30% !important; }
+  .tl-side .tl-year { padding-left: 46px; }
+  .step ul { display: none; }
+}
+
 /* spotlight hover for cards */
 .spot { position: relative; isolation: isolate; }
 .spot::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 2; opacity: 0; transition: opacity .4s;
@@ -1112,7 +1163,7 @@ p { text-wrap: pretty; }
   .srow-head { grid-template-columns: 1fr 48px; }
   .srow-idx, .srow-count { display: none; }
   .srow-inner { grid-template-columns: 1fr; padding-bottom: 32px; }
-  .hs { height: auto !important; }
+
   .hs-sticky { position: relative; height: auto; padding-block: var(--section); }
   .hs-track { transform: none !important; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: none; }
   .hs-track::-webkit-scrollbar { display: none; }
