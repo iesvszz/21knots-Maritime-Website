@@ -208,7 +208,7 @@
         const w = stage.clientWidth, h = stage.clientHeight, u = Math.min(h, w / .47);
         if (w < 760) {
           const cardW = Math.min(w * .64, 300), radius = w * 1.15;
-          g = { cardW, cardH: cardW / 1.2, radius, hubX: w * .5 - radius, hubY: h * .34, step: 17 };
+          g = { cardW, cardH: cardW / 1.2, radius, hubX: w * .5 - radius, hubY: h * .27, step: 17 };
         } else {
           const cardW = .33 * u;
           g = { cardW, cardH: cardW / 1.2, radius: .74 * u, hubX: .3 * u - .74 * u, hubY: .5 * h, step: 15 };
@@ -217,7 +217,7 @@
         track.style.height = `calc(100svh * ${1 + steps * PER})`;
         const narrow = w < .9 * h || w < 760;
         cap.classList.toggle("is-narrow", narrow);
-        if (!narrow) { cap.style.top = g.hubY + "px"; cap.style.left = Math.max(g.hubX + g.radius + g.cardW / 2 + 60, w * .5) + "px"; }
+        if (!narrow) { cap.style.top = g.hubY + "px"; cap.style.left = (g.hubX + g.radius + g.cardW / 2 + Math.max(48, w * .05)) + "px"; }
         draw();
       };
       const draw = () => {

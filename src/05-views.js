@@ -100,17 +100,20 @@ const portfoliosBlock = () => `
     </article>`).join("")}
   </div>`;
 
-const clientsBlock = () => {
+const clientsBlock = (head = "") => {
   const it = C.clientSegments, n = Math.ceil(10 / it.length) * it.length;
   return `
   <div class="arc" data-arc data-n="${it.length}" role="region" aria-roledescription="carousel" aria-label="Vessel types we work on">
     <div class="arc-stage">
       ${Array.from({ length: n }, (_, i) => { const c = it[i % it.length]; return `<div class="arc-card bp"${i < it.length ? ` tabindex="0" role="button" aria-label="${esc(c.t)}, ${i + 1} of ${it.length}"` : ' aria-hidden="true"'} data-i="${i}"><div class="arc-art">${Art(c.art)}</div><span class="arc-tag">${esc(c.t)}</span></div>`; }).join("")}
-      <div class="arc-cap" aria-live="polite">
+      <div class="arc-cap">
+        ${head ? `<div class="arc-head"><span class="tag">Our clients</span><h2 class="arc-h">${esc(head)}</h2><p class="arc-sub">${esc(C.reach)}</p></div>` : ""}
+        <div class="arc-now" aria-live="polite">
         <p class="arc-num"><b>01</b> / ${String(it.length).padStart(2, "0")}</p>
         <h3 class="arc-title">${esc(it[0].t)}</h3>
         <p class="arc-meta">${esc(it[0].m)}</p>
         <div class="arc-dots">${it.map((c, k) => `<button aria-label="Show ${esc(c.t)}" data-go="${k}"${k === 0 ? ' class="is-on"' : ""}></button>`).join("")}</div>
+        </div>
       </div>
       <span class="arc-hint" aria-hidden="true">Scroll to turn</span>
     </div>
@@ -207,8 +210,7 @@ function viewHome() {
   </div></section>
 
   <section class="section" style="padding-top:0"><div class="wrap">
-    <div class="shead"><div><span class="tag">Our clients</span><h2 class="h2 split">Owners, operators and yards across every major vessel type.</h2></div><p>${esc(C.reach)}</p></div>
-    ${clientsBlock()}
+    ${clientsBlock("Owners, operators and yards across every major vessel type.")}
     ${credentialsBlock()}
   </div></section>
 
@@ -316,8 +318,7 @@ function viewAbout() {
   </div></section>
 
   <section class="section" style="padding-top:0"><div class="wrap">
-    <div class="shead"><div><span class="tag">Our clients</span><h2 class="h2 split">Who we work with.</h2></div><p>${esc(C.reach)}</p></div>
-    ${clientsBlock()}
+    ${clientsBlock("Who we work with.")}
   </div></section>
 
   <section class="section journey-sec" style="padding-top:0"><div class="wrap">
