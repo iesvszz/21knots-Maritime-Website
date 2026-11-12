@@ -407,11 +407,10 @@
       if (performance.now() - openedAt < 2500 || Date.now() - lastSend < 30000) { const al = $("#f-alert", f); al.textContent = "Please wait a moment before sending."; al.hidden = false; return; }
       const d = { topic: clean(raw.topic, 40), name: clean(raw.name, 80), email: clean(raw.email, 120), phone: clean(raw.phone, 20), subject: clean(raw.subject, 120), message: String(raw.message || "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, 180) };
       let ok = true;
-      setErr("name"); setErr("email"); setErr("message"); setErr("phone");
+      setErr("name"); setErr("email"); setErr("message");
       if (!d.name.trim()) { setErr("name", "Enter your name."); ok = false; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { setErr("email", "Enter an email address like name@company.com."); ok = false; }
       if (!d.message.trim()) { setErr("message", "Write a short message so we know how to help."); ok = false; }
-      if (d.phone && !/^[+()\d\s-]{6,20}$/.test(d.phone)) { setErr("phone", "Use digits, spaces and + only, for example +91 22 4606 0604."); ok = false; }
       if (!ok) { const first = $(".is-error input, .is-error textarea", f); first && first.focus(); return; }
       const body = `Topic: ${d.topic}\nName: ${d.name}\nEmail: ${d.email}${d.phone ? `\nPhone: ${d.phone}` : ""}\n\n${d.message}`;
       const subject = d.subject || `Enquiry: ${d.topic}`;

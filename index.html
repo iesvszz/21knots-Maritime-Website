@@ -211,7 +211,7 @@ p { text-wrap: pretty; }
 }
 .menu-open .mmenu { clip-path: inset(0 0 0 0); visibility: visible; transition: clip-path .7s var(--ease-io), visibility 0s; }
 .mmenu-list > li { border-bottom: 1px solid var(--line); overflow: hidden; }
-.mmenu-list > li > a, .mmenu-list > li > button { display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 16px 0; font-size: clamp(1.9rem, 8vw, 2.6rem); font-weight: 500; letter-spacing: -0.035em; text-align: left; }
+.mmenu-list > li > a, .mmenu-list > li > button { display: flex; width: 100%; justify-content: space-between; align-items: center; padding: 12px 0; font-size: clamp(1.25rem, 5.4vw, 1.6rem); font-weight: 500; letter-spacing: -0.035em; text-align: left; }
 .mmenu-list > li > * { transform: translateY(110%); transition: transform .8s var(--ease-out); }
 .menu-open .mmenu-list > li > * { transform: none; transition-delay: calc(var(--i) * 50ms + 200ms); }
 #mm-svc svg { transition: transform .5s var(--ease-out); }
@@ -1274,6 +1274,10 @@ p { text-wrap: pretty; }
 .pf-link { display: none !important; }
 .portfolios { padding-top: 0 !important; }
 
+.mmenu-sub a { font-size: .9375rem; padding: 5px 0; }
+.mmenu-sub h4 { font-size: .75rem; }
+.mmenu-foot { font-size: .875rem; }
+@media (max-width: 600px) { .ct-card .form { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
   .js .split .wi, .js [data-reveal] { transform: none; opacity: 1; }
@@ -2568,8 +2572,6 @@ function viewContact() {
         </div>
         <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" maxlength="80" required><span class="field-err" data-err="name"></span></div>
         <div class="field"><label for="f-email">Email address</label><input id="f-email" name="email" type="email" autocomplete="email" maxlength="120" required><span class="field-err" data-err="email"></span></div>
-        <div class="field"><label for="f-phone">Phone number <em>optional</em></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" maxlength="20"><span class="field-err" data-err="phone"></span></div>
-        <div class="field"><label for="f-subject">Subject <em>optional</em></label><input id="f-subject" name="subject" maxlength="120"></div>
         <div class="field field--full"><label for="f-msg">Message</label><span class="field-count" id="f-count">0/180</span><textarea id="f-msg" name="message" maxlength="180" required></textarea><span class="field-err" data-err="message"></span></div>
         <div class="field--full form-foot"><button class="btn" type="submit" id="f-submit">Send message<span class="btn-ic">${Icon.arrow}${Icon.arrow}</span></button><p class="small muted">We use your details only to reply. <a class="link link--under" href="${L("privacy-policy")}">Privacy policy</a></p></div>
         <div class="field--full form-alert" id="f-alert" role="alert" hidden></div>
@@ -3108,11 +3110,10 @@ const ALIASES = { about: "about-21knots", "about-us": "about-21knots", contact: 
       if (performance.now() - openedAt < 2500 || Date.now() - lastSend < 30000) { const al = $("#f-alert", f); al.textContent = "Please wait a moment before sending."; al.hidden = false; return; }
       const d = { topic: clean(raw.topic, 40), name: clean(raw.name, 80), email: clean(raw.email, 120), phone: clean(raw.phone, 20), subject: clean(raw.subject, 120), message: String(raw.message || "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, 180) };
       let ok = true;
-      setErr("name"); setErr("email"); setErr("message"); setErr("phone");
+      setErr("name"); setErr("email"); setErr("message");
       if (!d.name.trim()) { setErr("name", "Enter your name."); ok = false; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { setErr("email", "Enter an email address like name@company.com."); ok = false; }
       if (!d.message.trim()) { setErr("message", "Write a short message so we know how to help."); ok = false; }
-      if (d.phone && !/^[+()\d\s-]{6,20}$/.test(d.phone)) { setErr("phone", "Use digits, spaces and + only, for example +91 22 4606 0604."); ok = false; }
       if (!ok) { const first = $(".is-error input, .is-error textarea", f); first && first.focus(); return; }
       const body = `Topic: ${d.topic}\nName: ${d.name}\nEmail: ${d.email}${d.phone ? `\nPhone: ${d.phone}` : ""}\n\n${d.message}`;
       const subject = d.subject || `Enquiry: ${d.topic}`;

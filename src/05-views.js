@@ -614,8 +614,6 @@ function viewContact() {
         </div>
         <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" maxlength="80" required><span class="field-err" data-err="name"></span></div>
         <div class="field"><label for="f-email">Email address</label><input id="f-email" name="email" type="email" autocomplete="email" maxlength="120" required><span class="field-err" data-err="email"></span></div>
-        <div class="field"><label for="f-phone">Phone number <em>optional</em></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" maxlength="20"><span class="field-err" data-err="phone"></span></div>
-        <div class="field"><label for="f-subject">Subject <em>optional</em></label><input id="f-subject" name="subject" maxlength="120"></div>
         <div class="field field--full"><label for="f-msg">Message</label><span class="field-count" id="f-count">0/180</span><textarea id="f-msg" name="message" maxlength="180" required></textarea><span class="field-err" data-err="message"></span></div>
         <div class="field--full form-foot"><button class="btn" type="submit" id="f-submit">Send message<span class="btn-ic">${Icon.arrow}${Icon.arrow}</span></button><p class="small muted">We use your details only to reply. <a class="link link--under" href="${L("privacy-policy")}">Privacy policy</a></p></div>
         <div class="field--full form-alert" id="f-alert" role="alert" hidden></div>
