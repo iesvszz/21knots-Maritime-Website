@@ -144,7 +144,7 @@
       if (t._splitEnd) setTimeout(() => t.classList.add("is-done"), t._splitEnd);
       if (t.matches("[data-count]")) countUp(t);
       if (t.matches("[data-draw]")) drawIn(t);
-    }), { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    }), { rootMargin: "0px 0px -8% 0px", threshold: [0, 0.12] });
     $$(".split, [data-reveal], [data-draw], [data-count]", root).forEach(el => io.observe(el));
   }
 

@@ -605,7 +605,7 @@ function viewContact() {
       </div>
       <div class="socials" aria-label="Follow us" data-reveal style="--delay:.45s">${C.company.socials.map(s => `<a href="${s.href}" target="_blank" rel="noopener noreferrer" aria-label="${esc(s.name)}">${Icon[s.icon]}</a>`).join("")}</div>
     </div>
-    <div class="ct-card" data-reveal style="--delay:.15s">
+    <div class="ct-card">
       <h2 class="h3">Send us a message</h2>
       <form class="form" id="enquiry" novalidate autocomplete="on">
         <div class="hp" aria-hidden="true"><label for="f-website">Leave this field empty</label><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>

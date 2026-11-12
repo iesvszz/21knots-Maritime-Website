@@ -2559,7 +2559,7 @@ function viewContact() {
       </div>
       <div class="socials" aria-label="Follow us" data-reveal style="--delay:.45s">${C.company.socials.map(s => `<a href="${s.href}" target="_blank" rel="noopener noreferrer" aria-label="${esc(s.name)}">${Icon[s.icon]}</a>`).join("")}</div>
     </div>
-    <div class="ct-card" data-reveal style="--delay:.15s">
+    <div class="ct-card">
       <h2 class="h3">Send us a message</h2>
       <form class="form" id="enquiry" novalidate autocomplete="on">
         <div class="hp" aria-hidden="true"><label for="f-website">Leave this field empty</label><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
@@ -2845,7 +2845,7 @@ const ALIASES = { about: "about-21knots", "about-us": "about-21knots", contact: 
       if (t._splitEnd) setTimeout(() => t.classList.add("is-done"), t._splitEnd);
       if (t.matches("[data-count]")) countUp(t);
       if (t.matches("[data-draw]")) drawIn(t);
-    }), { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    }), { rootMargin: "0px 0px -8% 0px", threshold: [0, 0.12] });
     $$(".split, [data-reveal], [data-draw], [data-count]", root).forEach(el => io.observe(el));
   }
 
