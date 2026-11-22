@@ -167,7 +167,6 @@ p { text-wrap: pretty; }
 .logo { display: inline-flex; align-items: center; }
 .logo img { height: 34px; width: auto; display: block; }
 .footer .logo img { height: 40px; }
-.loader-logo { height: 44px; width: auto; margin-bottom: auto; align-self: flex-start; }
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-link {
   position: relative; display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px; border-radius: 999px;
@@ -236,13 +235,17 @@ p { text-wrap: pretty; }
 .curtain.is-in .curtain-label { opacity: 1; transition-delay: .35s; }
 .curtain.is-out .curtain-label { opacity: 0; transition-delay: 0s; }
 
-.loader { position: fixed; inset: 0; z-index: 250; background: var(--paper); display: flex; flex-direction: column; justify-content: flex-end; padding: var(--gutter); transition: transform 1s var(--ease-io); }
-.loader.is-done { transform: translateY(-100%); }
-.loader-num { font-size: clamp(5rem, 20vw, 17rem); line-height: .8; font-weight: 500; letter-spacing: -0.06em; color: var(--ink); font-variant-numeric: tabular-nums; display: flex; align-items: baseline; gap: .12em; }
-.loader-num small { font-size: .22em; letter-spacing: -0.02em; color: var(--brand); }
-.loader-bar { height: 2px; background: var(--line); margin-top: 28px; position: relative; overflow: hidden; }
-.loader-bar i { position: absolute; inset: 0; background: var(--brand); transform-origin: left; transform: scaleX(0); }
-.loader-meta { display: flex; justify-content: space-between; margin-top: 14px; font-size: var(--fs-small); color: var(--ink-2); }
+.loader { position: fixed; inset: 0; z-index: 250; background: #fff; display: grid; place-items: center; transition: opacity .7s var(--ease-out), visibility 0s linear .7s; }
+.loader.is-done { opacity: 0; visibility: hidden; }
+.loader-mark { position: relative; display: grid; justify-items: center; gap: 18px; }
+.loader-logo { height: clamp(44px, 7vw, 76px); width: auto; clip-path: inset(0 100% 0 0); filter: blur(8px); opacity: 0; transform: translateY(8px); }
+.loader-line { display: block; width: 100%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--brand), var(--mint)); transform: scaleX(0); transform-origin: left; }
+.loader.is-play .loader-logo { animation: logoIn 1.15s var(--ease-out) .15s forwards; }
+.loader.is-play .loader-line { animation: lineIn .9s var(--ease-io) .45s forwards, lineOut .6s var(--ease-io) 1.45s forwards; }
+.loader.is-done .loader-mark { transform: scale(1.06); transition: transform .8s var(--ease-out); }
+@keyframes logoIn { to { clip-path: inset(0 0 0 0); filter: blur(0); opacity: 1; transform: none; } }
+@keyframes lineIn { to { transform: scaleX(1); } }
+@keyframes lineOut { from { transform: scaleX(1); transform-origin: right; } to { transform: scaleX(0); transform-origin: right; } }
 
 /* ---------- cursor ---------- */
 .cursor { position: fixed; left: 0; top: 0; z-index: 400; pointer-events: none; mix-blend-mode: normal; }

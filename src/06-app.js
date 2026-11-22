@@ -850,18 +850,10 @@ void main(){
     const loader = $("#loader");
     let seen = false; try { seen = sessionStorage.getItem("21k-seen") === "1"; sessionStorage.setItem("21k-seen", "1"); } catch {}
     if (RM || seen) { loader.remove(); settle(); return; }
-    const n = $("#loader-n"), bar = $("#loader-bar"), t0 = performance.now(), dur = 1300;
-    await new Promise(res => {
-      const tick = t => {
-        const p = clamp((t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-        n.textContent = String(Math.round(21 * e)).padStart(2, "0"); bar.style.transform = `scaleX(${e})`;
-        p < 1 ? requestAnimationFrame(tick) : res();
-      };
-      requestAnimationFrame(tick);
-    });
-    await wait(180);
+    loader.classList.add("is-play");
+    await wait(2100);
     loader.classList.add("is-done");
-    await wait(380); settle();
+    await wait(250); settle();
     setTimeout(() => loader.remove(), 900);
   }
   boot();
